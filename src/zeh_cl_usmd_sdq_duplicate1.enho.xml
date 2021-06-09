@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>HOOK_IMPL</TOOL>
+   <SHORTTEXT>ZEH_CL_USMD_SDQ_DUPLICATE1</SHORTTEXT>
+   <ORIGINAL_OBJECT>
+    <PGMID>R3TR</PGMID>
+    <ORG_OBJ_TYPE>CLAS</ORG_OBJ_TYPE>
+    <ORG_OBJ_NAME>CL_USMD_SDQ_DUPLICATE_CHECK</ORG_OBJ_NAME>
+    <ORG_MAIN_TYPE>CLAS</ORG_MAIN_TYPE>
+    <ORG_MAIN_NAME>CL_USMD_SDQ_DUPLICATE_CHECK</ORG_MAIN_NAME>
+    <PROGRAMNAME>CL_USMD_SDQ_DUPLICATE_CHECK===CP</PROGRAMNAME>
+   </ORIGINAL_OBJECT>
+   <ENHANCEMENTS>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>CL_USMD_SDQ_DUPLICATE_CHECK===CP</PROGRAMNAME>
+     <ENHMODE>S</ENHMODE>
+     <FULL_NAME>\TY:CL_USMD_SDQ_DUPLICATE_CHECK\ME:SEARCH_MODE\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item>&quot;This enhancement help to expand the Configure Duplicate Check for Entity Types tab in the dublicate check regarding the BP Type.</item>
+      <item/>
+      <item>DATA: ls_usmd_dupchk_mod1 TYPE usmd_dupchk_mod.</item>
+      <item/>
+      <item>IF iv_model EQ &apos;BP&apos;.</item>
+      <item/>
+      <item>     CALL METHOD zcl_md_mdgbp_utilities=&gt;get_app_context</item>
+      <item>      IMPORTING</item>
+      <item>*       ev_crequest_type =                  &quot; Type of Change Request</item>
+      <item>*       ev_crequest_step =                  &quot; Change Request Step</item>
+      <item>        ev_crequest_id = DATA(lv_cr).       &quot; Change Request</item>
+      <item/>
+      <item>    CALL METHOD zcl_mdgbp_helper_class=&gt;get_bp_type</item>
+      <item>      EXPORTING</item>
+      <item>        iv_cr      = lv_cr                   &quot; Change Request</item>
+      <item>      IMPORTING</item>
+      <item>        ev_bp_type = DATA(lv_bp_type).       &quot; Business Partner Category</item>
+      <item/>
+      <item>    IF lv_bp_type EQ &apos;1&apos;.</item>
+      <item/>
+      <item>      SELECT SINGLE * FROM usmd_dupchk_mod INTO ls_usmd_dupchk_mod1</item>
+      <item>                          WHERE usmd_model   = iv_model AND</item>
+      <item>                                usmd_entity  = iv_entity.</item>
+      <item/>
+      <item>        IF sy-subrc IS INITIAL AND ls_usmd_dupchk_mod1 IS NOT INITIAL.</item>
+      <item/>
+      <item>          ls_usmd_dupchk_mod1-match_profile_id = &apos;ZBPMATCH&apos;.</item>
+      <item>          ls_usmd_dupchk_mod1-usmd_search_help = &apos;ZMDG_BS_BP_ADDR&apos;.</item>
+      <item>          gs_usmd_dupchk_mod = ls_usmd_dupchk_mod1.</item>
+      <item/>
+      <item>        ENDIF.</item>
+      <item/>
+      <item>    ELSE.   &quot;IF lv_bp_type EQ &apos;2&apos; or lv_bp_type EQ &apos;3&apos;.</item>
+      <item/>
+      <item>      SELECT SINGLE * FROM usmd_dupchk_mod INTO ls_usmd_dupchk_mod1</item>
+      <item>                          WHERE usmd_model   = iv_model AND</item>
+      <item>                                usmd_entity  = iv_entity.</item>
+      <item/>
+      <item>        IF sy-subrc IS INITIAL AND ls_usmd_dupchk_mod1 IS NOT INITIAL.</item>
+      <item/>
+      <item>           gs_usmd_dupchk_mod  = ls_usmd_dupchk_mod1.</item>
+      <item/>
+      <item>        ENDIF.</item>
+      <item>     ENDIF.</item>
+      <item/>
+      <item/>
+      <item> ELSE .&quot;IF iv_model EQ &apos;MM&apos;.</item>
+      <item/>
+      <item>       SELECT SINGLE * FROM usmd_dupchk_mod INTO ls_usmd_dupchk_mod1</item>
+      <item>                          WHERE usmd_model   = iv_model AND</item>
+      <item>                                usmd_entity  = iv_entity.</item>
+      <item/>
+      <item>        IF sy-subrc IS INITIAL AND ls_usmd_dupchk_mod1 IS NOT INITIAL.</item>
+      <item/>
+      <item>             gs_usmd_dupchk_mod  = ls_usmd_dupchk_mod1.</item>
+      <item/>
+      <item>        ENDIF.</item>
+      <item>ENDIF.</item>
+      <item/>
+      <item/>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+   </ENHANCEMENTS>
+   <SOTR>
+    <item>
+     <HEADER>
+      <CONCEPT>000C290A381D1EEBA294600DC3BA3027</CONCEPT>
+      <CREA_LAN>E</CREA_LAN>
+      <TRALA_TYPE>1</TRALA_TYPE>
+      <OBJID_VEC>AAI=</OBJID_VEC>
+     </HEADER>
+     <ENTRIES>
+      <SOTR_TEXT>
+       <CONCEPT>000C290A381D1EEBA294600DC3BA3027</CONCEPT>
+       <LANGU>E</LANGU>
+       <LFD_NUM>0001</LFD_NUM>
+       <FLAG_CNTXT>X</FLAG_CNTXT>
+       <STATUS>R</STATUS>
+       <LENGTH>039</LENGTH>
+       <TEXT>ZEH_CL_USMD_SDQ_DUPLICATE1</TEXT>
+      </SOTR_TEXT>
+     </ENTRIES>
+    </item>
+   </SOTR>
+   <SOTR_USE>
+    <SOTR_USE>
+     <PGMID>R3TR</PGMID>
+     <OBJECT>ENHO</OBJECT>
+     <OBJ_NAME>ZEH_CL_USMD_SDQ_DUPLICATE1</OBJ_NAME>
+     <CONCEPT>000C290A381D1EEBA294600DC3BA3027</CONCEPT>
+     <LFD_NUM>0001</LFD_NUM>
+    </SOTR_USE>
+   </SOTR_USE>
+  </asx:values>
+ </asx:abap>
+</abapGit>
